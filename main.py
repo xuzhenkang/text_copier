@@ -697,7 +697,7 @@ class QRCodeGeneratorApp:
 
     def open_github(self, event):
         """打开GitHub页面"""
-        webbrowser.open("https://github.com/your-username/qr-code-generator")
+        webbrowser.open("https://github.com/xuzhenkang/text_copier")
 
 
 if __name__ == "__main__":
