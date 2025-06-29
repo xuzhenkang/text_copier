@@ -4,7 +4,6 @@ import qrcode
 from PIL import Image, ImageTk
 import textwrap
 import os
-import tempfile
 import webbrowser
 
 
@@ -14,6 +13,26 @@ class QRCodeGeneratorApp:
         self.root.title("长文本二维码生成器")
         self.root.geometry("900x900")
         self.root.resizable(True, True)
+
+        # 设置窗口图标
+        try:
+            if os.path.exists("icon.ico"):
+                self.root.iconbitmap("icon.ico")
+            else:
+                # 如果icon.ico不存在，尝试从可执行文件目录加载
+                import sys
+                if getattr(sys, 'frozen', False):
+                    # 如果是打包后的exe
+                    application_path = sys._MEIPASS
+                else:
+                    # 如果是开发环境
+                    application_path = os.path.dirname(os.path.abspath(__file__))
+
+                icon_path = os.path.join(application_path, "icon.ico")
+                if os.path.exists(icon_path):
+                    self.root.iconbitmap(icon_path)
+        except Exception as e:
+            print(f"设置图标失败: {e}")
 
         # 设置应用主题色
         self.primary_color = "#2E86AB"  # 深蓝色
@@ -332,6 +351,13 @@ class QRCodeGeneratorApp:
         text = self.text_input.get("1.0", tk.END).strip()
         if not text:
             messagebox.showwarning("输入错误", "请输入要生成二维码的文本内容")
+            return
+
+        # 处理代理对字符
+        try:
+            text = text.encode('utf-16', 'surrogatepass').decode('utf-16')
+        except Exception as e:
+            messagebox.showerror("编码错误", f"文本包含无法识别的字符：\n{str(e)}")
             return
 
         self.status_bar.config(text="正在生成二维码...")

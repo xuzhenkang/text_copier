@@ -7,7 +7,6 @@
 import os
 import sys
 import subprocess
-import shutil
 
 
 def install_pyinstaller():
@@ -34,6 +33,7 @@ def build_exe():
         "--name=text_copier_v1.0.0",  # 设置exe文件名
         "--icon=icon.ico",  # 设置图标（如果有的话）
         "--add-data=requirements.txt;.",  # 包含requirements.txt
+        "--add-data=icon.ico;.",  # 包含图标文件
         "--hidden-import=PIL._tkinter_finder",  # 确保PIL正确导入
         "--hidden-import=tkinter",  # 确保tkinter正确导入
         "--hidden-import=qrcode",  # 确保qrcode正确导入
