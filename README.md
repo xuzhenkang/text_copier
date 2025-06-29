@@ -72,6 +72,10 @@ dist/text_copier_v1.0.0.exe
 
 ## 📖 使用说明
 
+### 演示动画
+
+![Demo.gif](img/Demo.gif)
+
 ### 基本操作
 
 1. **输入文本** - 在文本框中输入要生成二维码的内容
@@ -100,6 +104,11 @@ dist/text_copier_v1.0.0.exe
 - **主题色彩** - 现代化的蓝色主题
 - **字体支持** - 使用Microsoft YaHei UI字体
 - **滚动支持** - 文本预览窗口支持水平和垂直滚动
+
+### 界面展示
+
+![demo1.png](img/demo1.png)
+![demo2.png](img/demo2.png)
 
 ## 📁 项目结构
 
