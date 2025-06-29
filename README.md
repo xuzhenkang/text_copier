@@ -106,7 +106,7 @@ dist/text_copier_v1.0.0.exe
 - **滚动支持** - 文本预览窗口支持水平和垂直滚动
 
 ### 界面展示
-
+![demo0.png](img/demo0.png)
 ![demo1.png](img/demo1.png)
 ![demo2.png](img/demo2.png)
 

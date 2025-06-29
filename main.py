@@ -146,14 +146,48 @@ class QRCodeGeneratorApp:
         self.text_input.pack(fill=tk.BOTH, expand=True)
         self.text_input.bind("<KeyRelease>", self.update_char_count)
 
-        # 字符计数标签
-        self.char_count = tk.Label(input_card,
-                                   text="字符数: 0",
-                                   font=("Microsoft YaHei UI", 9),
-                                   fg=self.text_color,
-                                   bg="white",
-                                   anchor=tk.W)
-        self.char_count.pack(fill=tk.X, pady=(10, 0))
+        # 字符计数与最大字符数设置（同一行）
+        char_and_max_frame = tk.Frame(input_card, bg="white")
+        char_and_max_frame.pack(fill=tk.X, pady=(10, 0))
+
+        self.char_count = tk.Label(
+            char_and_max_frame,
+            text="字符数: 0",
+            font=("Microsoft YaHei UI", 9),
+            fg=self.text_color,
+            bg="white",
+            anchor=tk.W
+        )
+        self.char_count.pack(side=tk.LEFT)
+
+        # 间隔
+        tk.Label(char_and_max_frame, text="  ", bg="white").pack(side=tk.LEFT)
+
+        max_chars_label = tk.Label(
+            char_and_max_frame,
+            text="每个二维码最大字符数:",
+            font=("Microsoft YaHei UI", 9),
+            fg=self.text_color,
+            bg="white"
+        )
+        max_chars_label.pack(side=tk.LEFT)
+
+        self.max_chars_var = tk.IntVar(value=self.max_chars)
+        max_chars_spinbox = tk.Spinbox(
+            char_and_max_frame,
+            from_=100, to=2000, increment=50,
+            textvariable=self.max_chars_var,
+            width=6,
+            font=("Microsoft YaHei UI", 9),
+            bg="#FAFAFA",
+            fg=self.text_color,
+            relief="flat",  # 扁平风格
+            bd=0,
+            highlightthickness=1,
+            highlightbackground="#DEE2E6",
+            justify="center"
+        )
+        max_chars_spinbox.pack(side=tk.LEFT, padx=(5, 0))
 
         # 按钮区域
         button_frame = tk.Frame(input_card, bg="white")
@@ -359,6 +393,12 @@ class QRCodeGeneratorApp:
         except Exception as e:
             messagebox.showerror("编码错误", f"文本包含无法识别的字符：\n{str(e)}")
             return
+
+        # 读取最新的最大字符数
+        try:
+            self.max_chars = int(self.max_chars_var.get())
+        except Exception:
+            self.max_chars = 800  # fallback
 
         self.status_bar.config(text="正在生成二维码...")
         self.root.update()
